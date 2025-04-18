@@ -160,25 +160,7 @@ let databas = [
   
   if (ask === "login") {
     let email = prompt("Entrez votre email").trim().toLowerCase();
-  
-   
-    let user = databas.find(u => u.email === email);
-  
-    if (!user) {
-      alert(" Aucun compte trouvé avec cet email.");
-    } else {
-      let password = prompt("Entrez votre mot de passe").trim();
-  
-     
-      if (password === user.password) {
-        alert(`Bienvenue ${user.name} !`);
-      } else {
-        alert(" Mot de passe incorrect !");
-      }
-    }
-  } else {
-    alert(" Choix non pris en charge dans ce code.");
-  }
+ }
 
 //         * After the user logs in, display the amount they have in their bank (user's choice) and offer them services:
 //             # Logout:
