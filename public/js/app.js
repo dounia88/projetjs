@@ -123,9 +123,62 @@ console.log("Compte créé :", person);
             
 //             # Password:
 //             - Check if the entered password is associated with the previously entered email.
+let database = [
+  new Person("Dounia Hajjaji", "dounia@example.com", "Pass@123", 22),
+  new Person("Nouhaila Bouchra", "nouhaila@example.com", "Nana@456", 23),
+];
+
+if (ask === "login") {
+  let email = prompt("Entrez votre email").trim().toLowerCase();
+
+  // 1. Vérifier si l'email existe dans notre base de données
+  let user = database.find(u => u.email === email);
+
+  if (!user) {
+    alert(" Aucun compte trouvé avec cet email.");
+  } else {
+    let password = prompt("Entrez votre mot de passe").trim();
+
+    // 2. Vérifier si le mot de passe correspond à cet email
+    if (password === user.password) {
+      alert(`Bienvenue ${user.name} !`);
+    } else {
+      alert(" Mot de passe incorrect !");
+    }
+  }
+} else {
+  alert(" Choix non pris en charge dans ce code.");
+}
 
 //         * If the user chooses to change the password:
 //             - They must enter their existing Email in the Database.
+
+let databas = [
+    new Person("Dounia Hajjaji", "dounia@example.com", "Pass@123", 22),
+    new Person("Nouhaila Bouchra", "nouhaila@example.com", "Nana@456", 23),
+  ];
+  
+  if (ask === "login") {
+    let email = prompt("Entrez votre email").trim().toLowerCase();
+  
+   
+    let user = databas.find(u => u.email === email);
+  
+    if (!user) {
+      alert(" Aucun compte trouvé avec cet email.");
+    } else {
+      let password = prompt("Entrez votre mot de passe").trim();
+  
+     
+      if (password === user.password) {
+        alert(`Bienvenue ${user.name} !`);
+      } else {
+        alert(" Mot de passe incorrect !");
+      }
+    }
+  } else {
+    alert(" Choix non pris en charge dans ce code.");
+  }
 
 //         * After the user logs in, display the amount they have in their bank (user's choice) and offer them services:
 //             # Logout:
