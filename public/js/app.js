@@ -57,10 +57,10 @@ let ask = prompt("login, signup ou change password ?").trim().toLowerCase();
 
 class Person {
   constructor(email, name, password, age) {
-    this.email = email;
-    this.name = name;
-    this.password = password;
-    this.age = age;
+    this.email = email
+    this.name = name
+    this.password = password
+    this.age = age
   }
 }
 
@@ -70,7 +70,7 @@ if (ask === "login") {
   let email = prompt("Entrez votre email ").trim().toLowerCase();
 
   if (email.length <= 10 || !email.includes("@")) {
-    alert(" Email invalide (moins de 10 caractères ou pas de '@').");
+    alert(" Email invalide (moins de 10 caractères ou pas de '@')");
   } else {
     person.email = email;
 
@@ -115,7 +115,7 @@ if (ask === "login") {
   alert(" Choix invalide ou fonctionnalité non encore développée.");
 }
 
-console.log("Compte créé :", person);
+console.log("Compte créé ", person);
 
 //         * If the user chooses to log in, here are the details they must enter:
 //             # Email:
@@ -159,8 +159,25 @@ let databas = [
   ];
   
   if (ask === "login") {
-    let email = prompt("Entrez votre email").trim().toLowerCase();
- }
+    let email = prompt("Entrez votre email").trim().toLowerCase()
+
+    let user = database.find(u => u.email === email)
+
+  if (!user) {
+    alert(" Aucun compte trouvé avec cet email.")
+  } else {
+    let password = prompt("Entrez votre mot de passe").trim()
+
+    if (password === user.password) {
+        alert(`Bienvenue ${user.name} !`)
+      } else {
+        alert(" Mot de passe incorrect !")
+      }
+    }
+  } else {
+    alert(" Choix non pris en charge dans ce code.")
+  }
+ 
 
 //         * After the user logs in, display the amount they have in their bank (user's choice) and offer them services:
 //             # Logout:
