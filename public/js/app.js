@@ -38,73 +38,12 @@
 //             - Ensure the email is unique.
 
 
-let ask = prompt("login, signup ou change password ?").trim().toLowerCase();
-
-class Person {
-  constructor(email, name, password) {
-    this.email = email;
-    this.name = name;
-    this.password = password;
-  }
-}
-
-let person = new Person("", "", "");
-
-if (ask === "login") {
-  let email = prompt("Entrez votre email ").trim().toLowerCase();
-
- 
-  if (email.length <= 10 || !email.includes("@")) {
-    alert(" Email invalide (moins de 10 caractères ou pas de '@').");
-  } else {
-    person.email = email;
-
-    let name = prompt("Entrez votre nom complet (ex: dounia hajjaji)").trim();
-
-    let nameParts = name.split(" ");
-    let formattedName = "";
-
-    
-    for (let part of nameParts) {
-      formattedName += part.charAt(0).toUpperCase() + part.slice(1).toLowerCase() + " ";
-    }
-
-    formattedName = formattedName.trim();
-
-    
-    if (formattedName.replace(/\s+/g, "").length <= 5) {
-      alert(" Le nom est trop court (au moins 6 lettres hors espaces).");
-    } else {
-      person.name = formattedName;
-
-      let password = prompt("Entrez votre mot de passe ");
-      let confirmPassword = prompt("Confirmez votre mot de passe ");
-
-      if (password === confirmPassword) {
-        person.password = password;
-        alert(` Bienvenue ${person.name} !`);
-      } else {
-        alert(" Le mot de passe ne correspond pas");
-      }
-    }
-  }
-} else {
-  alert(" Choix invalide ou fonctionnalité non encore développée");
-
-  
-}
-
-console.log("Compte créé ", person);
-
-
-
-
-
-
 //             # Age:
 //             - Check for leading, trailing, or middle spaces.
 //             - Verify that only digits are entered.
 //             - Do not save the Age if it has 0 characters, or if it has 3 characters or more.
+
+
 
 //             # Password:
 //             - Check for leading or trailing spaces.
@@ -114,6 +53,69 @@ console.log("Compte créé ", person);
 
 //             # Password_confirmed:
 //             - The user must re-enter their exact password; otherwise, they are blocked.
+let ask = prompt("login, signup ou change password ?").trim().toLowerCase();
+
+class Person {
+  constructor(email, name, password, age) {
+    this.email = email;
+    this.name = name;
+    this.password = password;
+    this.age = age;
+  }
+}
+
+let person = new Person("", "", "", null);
+
+if (ask === "login") {
+  let email = prompt("Entrez votre email ").trim().toLowerCase();
+
+  if (email.length <= 10 || !email.includes("@")) {
+    alert(" Email invalide (moins de 10 caractères ou pas de '@').");
+  } else {
+    person.email = email;
+
+    let name = prompt("Entrez votre nom complet (ex: Dounia Hajjaji)").trim();
+    let nameParts = name.split(" ");
+    let formattedName = "";
+
+    for (let part of nameParts) {
+      formattedName += part.charAt(0).toUpperCase() + part.slice(1).toLowerCase() + " ";
+    }
+
+    formattedName = formattedName.trim();
+
+    if (formattedName.replace(/\s+/g, "").length <= 5) {
+      alert(" Le nom est trop court (au moins 6 lettres hors espaces).");
+    } else {
+      person.name = formattedName;
+
+      
+      let rawAge = prompt("Entrez votre âge :");
+      let cleanedAge = rawAge.replace(/\s+/g, ""); 
+
+      if (!/^\d+$/.test(cleanedAge) || cleanedAge.length === 0 || cleanedAge.length >= 3) {
+        alert(" Âge invalide (doit être uniquement des chiffres et max 2 chiffres).");
+      } else {
+        person.age = parseInt(cleanedAge);
+
+        
+        let password = prompt("Entrez votre mot de passe ");
+        let confirmPassword = prompt("Confirmez votre mot de passe ");
+
+        if (password === confirmPassword) {
+          person.password = password;
+          alert(` Bienvenue ${person.name}, âge ${person.age} ans !`);
+        } else {
+          alert(" Le mot de passe ne correspond pas.");
+        }
+      }
+    }
+  }
+} else {
+  alert(" Choix invalide ou fonctionnalité non encore développée.");
+}
+
+console.log("Compte créé :", person);
 
 //         * If the user chooses to log in, here are the details they must enter:
 //             # Email:
