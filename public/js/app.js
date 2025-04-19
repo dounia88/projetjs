@@ -199,3 +199,77 @@ let databas = [
             
 //             # History:
 //             - Ability to view the entire transaction history.
+
+
+function startApp() {
+    let choice = prompt("login, signup ou change password ?").trim().toLowerCase();
+  
+    if (choice === "login") {
+      login();
+    } else {
+      alert("Option non encore disponible. Essaie 'login' !");
+      startApp(); 
+    }
+  }
+  
+  function login() {
+    let email = prompt("Entrez votre email").trim().toLowerCase();
+    let user = database.find(u => u.email === email);
+  
+    if (!user) {
+      alert(" Aucun utilisateur trouvé avec cet email.");
+      return startApp();
+    }
+  
+    let password = prompt("Entrez votre mot de passe").trim();
+    if (password !== user.password) {
+      alert(" Mot de passe incorrect !");
+      return startApp();
+    }
+  
+    alert(` Bienvenue ${user.name} ! Votre solde est : ${user.balance} dhs.`);
+    bankingServices(user);
+  }
+  
+  function bankingServices(user) {
+    let action = prompt("Que voulez-vous faire ? (withdraw / deposit / logout)").trim().toLowerCase();
+  
+    if (action === "withdraw") {
+      let amount = Number(prompt("Montant à retirer :").trim());
+  
+      if (isNaN(amount) || amount <= 0) {
+        alert(" Montant invalide.");
+      } else if (amount > user.balance) {
+        alert(" Vous ne pouvez pas retirer plus que votre solde.");
+      } else {
+        user.balance -= amount;
+        alert(` Retrait effectué. Nouveau solde : ${user.balance} dhs.`);
+      }
+      bankingServices(user); 
+    }
+  
+    else if (action === "deposit") {
+      let amount = Number(prompt("Montant à déposer (max 1000 dhs) :").trim());
+  
+      if (isNaN(amount) || amount <= 0 || amount > 1000) {
+        alert(" Montant invalide ou supérieur à 1000 dhs.");
+      } else {
+        user.balance += amount;
+        alert(` Dépôt effectué. Nouveau solde : ${user.balance} dhs.`);
+      }
+      bankingServices(user); 
+    }
+  
+    else if (action === "logout") {
+      alert(" Vous êtes maintenant déconnecté.");
+      startApp(); 
+    }
+  
+    else {
+      alert(" Action non reconnue.");
+      bankingServices(user);
+    }
+  }
+  
+ 
+  startApp();
